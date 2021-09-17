@@ -18,12 +18,12 @@ const app = await cloudbase.init({
 
 const auth = app.auth();
 async function login(){
-  await auth.anonymousAuthProvider().signIn();
+  auth.anonymousAuthProvider().signIn();
   // 匿名登录成功检测登录状态isAnonymous字段为true
-  const loginState = await auth.getLoginState();
-  console.log(loginState.isAnonymousAuth); // true
+  const loginState =  auth.getLoginState();
+//   console.log(loginState.isAnonymousAuth); // true
 }
-await login();
+ login();
 
 // const db = await app.database();
 // const collection = await db.collection("User").doc('28ee4e3e604ed4b90aafd6d861995b34').get();
