@@ -1,4 +1,5 @@
 import request from '../utils/request';
+import cloudbase from "@cloudbase/js-sdk";
 
 export const fetchData = query => {
     return request({
@@ -8,30 +9,19 @@ export const fetchData = query => {
     });
 };
 
-
-import cloudbase from "@cloudbase/js-sdk";
-console.log(cloudbase)
-const app =  cloudbase.init({
-  env: "dev-1gpp53ju3ceb46c7"
-});
-
-
-const auth = app.auth();
-async function login(){
-  auth.anonymousAuthProvider().signIn();
-  // 匿名登录成功检测登录状态isAnonymous字段为true
-  const loginState =  auth.getLoginState();
-//   console.log(loginState.isAnonymousAuth); // true
-}
- login();
-
-// const db = await app.database();
-// const collection = await db.collection("User").doc('28ee4e3e604ed4b90aafd6d861995b34').get();
-// console.log(collection)
-// const res = await db.collection("User").doc('28ee4e3e604ed4b90aafd6d861995b34').update({ 'storeId':123});
-// console.log(res)
-
-app
+async function index() {
+    const app = await cloudbase.init({
+    env: "dev-1gpp53ju3ceb46c7"
+    });
+    const auth = await app.auth();
+    async function login(){
+    await auth.anonymousAuthProvider().signIn();
+    // 匿名登录成功检测登录状态isAnonymous字段为true
+    const loginState =  await auth.getLoginState();
+    //   console.log(loginState.isAnonymousAuth); // true
+    }
+    await login();
+    app
     .callFunction({
       name: 'core',
       data: {
@@ -43,3 +33,12 @@ app
   .then((res) => {
     console.log(res);
   });
+}
+
+index()
+
+// const db = await app.database();
+// const collection = await db.collection("User").doc('28ee4e3e604ed4b90aafd6d861995b34').get();
+// console.log(collection)
+// const res = await db.collection("User").doc('28ee4e3e604ed4b90aafd6d861995b34').update({ 'storeId':123});
+// console.log(res)
