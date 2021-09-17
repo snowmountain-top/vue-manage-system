@@ -11,7 +11,7 @@ export const fetchData = query => {
 
 import cloudbase from "@cloudbase/js-sdk";
 console.log(cloudbase)
-const app = await cloudbase.init({
+const app =  cloudbase.init({
   env: "dev-1gpp53ju3ceb46c7"
 });
 
